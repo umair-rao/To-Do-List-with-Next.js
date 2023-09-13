@@ -1,37 +1,35 @@
-
-import { combineReducers } from 'redux'
-
+import { combineReducers } from 'redux';
 
 const initialState = {
-    task: [],
+  task: [], // Use the property name "task" here
 };
 
 const tasksReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'ADD_TASK':
-          return {
-            ...state,
-            tasks: [...state.tasks, action.payload],
-          };
-          case 'EDIT_TASK':
-          return {
-            ...state,
-            tasks: state.tasks.map((task) => 
-            task.id ===action.payload.id ? action.payload : task)
-          };
-          case 'DELETE_TASK':
-          return {
-            ...state,
-            tasks: state.tasks.filter((task) => task.id !== action.payload)
-          };
-          default:
-            return state;
-    }
-}
-
+  switch (action.type) {
+    case 'ADD_TASK':
+      return {
+        ...state,
+        task: [...state.task, action.payload], // Use "task" here
+      };
+    case 'EDIT_TASK':
+      return {
+        ...state,
+        task: state.task.map((task) =>
+          task.id === action.payload.id ? action.payload : task
+        ),
+      };
+    case 'DELETE_TASK':
+      return {
+        ...state,
+        task: state.task.filter((task) => task.id !== action.payload),
+      };
+    default:
+      return state;
+  }
+};
 
 const rootReducer = combineReducers({
-    tasks: tasksReducer,
-  });
-  
-  export default rootReducer;
+  tasks: tasksReducer,
+});
+
+export default rootReducer;
