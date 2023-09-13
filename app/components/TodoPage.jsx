@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, editTask, deleteTask } from "../Redux/actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const TodoPage = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
@@ -15,6 +17,10 @@ const TodoPage = () => {
     dispatch(addTask({ id: Date.now(), task: newTask }));
     setNewTask("");
   };
+
+  const handleDeleteTask = (id) => {
+    dispatch(deleteTask(id))
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-sky-200">
@@ -38,7 +44,9 @@ const TodoPage = () => {
           <div >
             <ul>
               {tasks.task.map((task) => (
-                <li key={task.id} className="py-1.5 border-black border-t-2 pl-1.5">{task.task}</li>
+                <li key={task.id} className="flex justify-between py-1.5 border-black border-t-2 pl-1.5">
+                    {task.task}{' '}
+                    <button onClick={() => handleDeleteTask(task.id)} className="mr-2.5"><FontAwesomeIcon icon={faTrash} /></button></li>
               ))}
             </ul>
           </div>
