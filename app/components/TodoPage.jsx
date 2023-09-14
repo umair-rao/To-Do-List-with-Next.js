@@ -4,13 +4,14 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, editTask, deleteTask } from "../Redux/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 const TodoPage = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
   const dispatch = useDispatch();
 
   const [newTask, setNewTask] = useState("");
+  const [editingTask, setEditingTask] = useState(null)
 
   const handleAddTask = (e) => {
     e.preventDefault();
@@ -20,6 +21,12 @@ const TodoPage = () => {
 
   const handleDeleteTask = (id) => {
     dispatch(deleteTask(id))
+  }
+
+  const handleEditTask = (input) => {
+    dispatch(editTask({ id: editingTask, task: newTask }));
+    setNewTask(input.task);
+    setEditingTask(input.id);
   }
 
   return (
@@ -37,6 +44,7 @@ const TodoPage = () => {
                 onChange={(e) => setNewTask(e.target.value)}
                 placeholder="Add your Task"
                 className="border-none outline-none"
+                required
               />
             </form>
             <button onClick={handleAddTask} className="pr-2">Add Task</button>
@@ -45,8 +53,10 @@ const TodoPage = () => {
             <ul>
               {tasks.task.map((task) => (
                 <li key={task.id} className="flex justify-between py-1.5 border-black border-t-2 pl-1.5">
-                    {task.task}{' '}
-                    <button onClick={() => handleDeleteTask(task.id)} className="mr-2.5"><FontAwesomeIcon icon={faTrash} /></button></li>
+                    {task.task}
+                    <button onClick={() => handleEditTask(task)} className="mr-2.5"><FontAwesomeIcon icon={faPencil}/></button>
+                    <button onClick={() => handleDeleteTask(task.id)} className="mr-2.5"><FontAwesomeIcon icon={faTrash} /></button>
+                    </li>
               ))}
             </ul>
           </div>

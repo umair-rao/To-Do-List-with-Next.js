@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const initialState = {
-  task: [], // Use the property name "task" here
+  task: [],
 };
 
 const tasksReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const tasksReducer = (state = initialState, action) => {
     case 'ADD_TASK':
       return {
         ...state,
-        task: [...state.task, action.payload], // Use "task" here
+        task: [...state.task, action.payload],
       };
     case 'EDIT_TASK':
       return {
