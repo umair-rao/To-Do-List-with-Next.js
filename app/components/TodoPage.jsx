@@ -4,14 +4,14 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, editTask, deleteTask } from "../Redux/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 
 const TodoPage = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
   const dispatch = useDispatch();
 
   const [newTask, setNewTask] = useState("");
-  const [editingTask, setEditingTask] = useState(null)
+  const [editingTask, setEditingTask] = useState(null);
 
   const handleAddTask = (e) => {
     e.preventDefault();
@@ -20,21 +20,20 @@ const TodoPage = () => {
   };
 
   const handleDeleteTask = (id) => {
-    dispatch(deleteTask(id))
-  }
+    dispatch(deleteTask(id));
+  };
 
   const handleEditTask = (input) => {
     dispatch(editTask({ id: editingTask, task: newTask }));
     setNewTask(input.task);
     setEditingTask(input.id);
-  }
-
+  };
 
   const updateEditTask = () => {
     dispatch(editTask({ id: editingTask, task: newTask }));
     setEditingTask(null);
     setNewTask("");
-  }; 
+  };
 
   return (
     <div className="flex items-center justify-center h-screen bg-sky-200">
@@ -54,18 +53,39 @@ const TodoPage = () => {
                 required
               />
             </form>
-            {editingTask === null ? (<button onClick={handleAddTask} className="pr-2">Add Task</button>) 
-            : 
-            (<button onClick={updateEditTask} className="pr-2">Update Task</button>)}
+            {editingTask === null ? (
+              <button onClick={handleAddTask} className="pr-2">
+                Add Task
+              </button>
+            ) : (
+              <button onClick={updateEditTask} className="pr-2">
+                Update Task
+              </button>
+            )}
           </div>
-          <div >
+          <div>
             <ul>
               {tasks.task.map((task) => (
-                <li key={task.id} className="flex justify-between py-1.5 border-black border-t-2 pl-1.5">
-                    {task.task}
-                    <button onClick={() => handleEditTask(task)} className="mr-2.5"><FontAwesomeIcon icon={faPencil}/></button>
-                    <button onClick={() => handleDeleteTask(task.id)} className="mr-2.5"><FontAwesomeIcon icon={faTrash} /></button>
-                    </li>
+                <li
+                  key={task.id}
+                  className="flex justify-between py-1.5 border-black border-t-2 pl-1.5"
+                >
+                  {task.task}
+                  <div>
+                    <button
+                      onClick={() => handleEditTask(task)}
+                      className="mr-3.5"
+                    >
+                      <FontAwesomeIcon icon={faPencil} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteTask(task.id)}
+                      className="mr-2.5"
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </div>
+                </li>
               ))}
             </ul>
           </div>
