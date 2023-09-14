@@ -29,6 +29,13 @@ const TodoPage = () => {
     setEditingTask(input.id);
   }
 
+
+  const updateEditTask = () => {
+    dispatch(editTask({ id: editingTask, task: newTask }));
+    setEditingTask(null);
+    setNewTask("");
+  }; 
+
   return (
     <div className="flex items-center justify-center h-screen bg-sky-200">
       <div className="bg-white border-2 border-amber-400">
@@ -47,7 +54,9 @@ const TodoPage = () => {
                 required
               />
             </form>
-            <button onClick={handleAddTask} className="pr-2">Add Task</button>
+            {editingTask === null ? (<button onClick={handleAddTask} className="pr-2">Add Task</button>) 
+            : 
+            (<button onClick={updateEditTask} className="pr-2">Update Task</button>)}
           </div>
           <div >
             <ul>
