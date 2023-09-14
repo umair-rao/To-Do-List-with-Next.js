@@ -58,7 +58,7 @@ const TodoPage = () => {
                 Add Task
               </button>
             ) : (
-              <button onClick={updateEditTask} className="pr-2">
+              <button onClick={updateEditTask} className="pr-2 bg-red-400">
                 Update Task
               </button>
             )}
