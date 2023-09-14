@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) 
+This is a [Next.js](https://nextjs.org/) Project.
 
 ## Todo List Web was built using Redux as a State management tool in Next.js. Users can add, delete, and edit tasks in the Todo List App.
 
